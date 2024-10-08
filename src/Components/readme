@@ -1,0 +1,76 @@
+
+//   // Basic validation function
+//   const validate = () => {
+//     let validationErrors = {};
+
+//     // Username validation
+//     if (!username.trim()) {
+//       validationErrors.username = "Username is required";
+//     } else if (!/^[\w@._]+$/.test(username)) {
+//       validationErrors.username = "Username can only contain letters, numbers, @, and _";
+//     } else if (/\s/.test(username)) {
+//       validationErrors.username = "Don't use spaces. Use @ and _ instead.";
+//     } else if (!username.includes('@') && !username.includes('_')) {
+//       validationErrors.username = "Username must contain at least one @ or _ character.";
+//     }
+
+//     // Name validation
+//     if (!name.trim()) {
+//       validationErrors.name = "Name is required";
+//     } else if (name.length < 3) {
+//       validationErrors.name = "Name must be at least 3 characters";
+//     } else if (!/^[A-Za-z]+(?: [A-Za-z]+)?$/.test(name)) {
+//       validationErrors.name = "Name can only contain letters and one space between words";
+//     }
+
+//     // Email validation
+//     if (!email.trim()) {
+//       validationErrors.email = "Email is required";
+//     } else if (!/\S+@\S+\.\S+/.test(email)) {
+//       validationErrors.email = "Email is invalid";
+//     }
+
+//     // Gender validation
+//     if (!gender) validationErrors.gender = "Gender is required";
+
+//     // Date of Birth validation
+//     if (!dob) validationErrors.dob = "Date of birth is required";
+
+//     // Phone validation
+//     if (!phone.trim()) {
+//       validationErrors.phone = "Phone number is required";
+//     } else if (!/^\+?1?\d{9,15}$/.test(phone)) {
+//       validationErrors.phone = "Phone number should be 10 digits";
+//     }
+
+//     // Country validation
+//     if (!country.trim()) validationErrors.country = "Country is required";
+
+//     // City validation
+//     if (!city.trim()) validationErrors.city = "City is required";
+
+//     // State validation
+//     if (!state.trim()) validationErrors.state = "State is required";
+
+//     // Password validation
+//     if (!password.trim()) {
+//       validationErrors.password = "Password is required";
+//     } else if (password.length < 6) {
+//       validationErrors.password = "Password must be at least 6 characters";
+//     } else if (!/[0-9]/.test(password)) {
+//       validationErrors.password = "Password must contain at least one number";
+//     } else if (!/[A-Z]/.test(password)) {
+//       validationErrors.password = "Password must contain at least one uppercase letter";
+//     }
+
+//     return validationErrors;
+//   };
+
+//   // Handle form submission
+//   const FormHandle = (e) => {
+//     e.preventDefault();
+//     const validationErrors = validate();
+//     if (Object.keys(validationErrors).length > 0) {
+//       setErrors(validationErrors);
+//       return;
+//     }
