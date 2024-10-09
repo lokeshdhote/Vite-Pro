@@ -74,3 +74,47 @@
 //       setErrors(validationErrors);
 //       return;
 //     }
+
+
+
+
+// //   {/* Travel Preference */}
+//           {/* <div className="flex flex-col">
+//             <label>Travel Preference</label>
+//             <select
+//               value={travelPreference}
+//               onChange={(e) => setTravelPreference(e.target.value)}
+//               className="w-full h-9 pl-2 text-black outline-none rounded"
+//             >
+//               <option value="">Select Travel Preference</option>
+//               <option value="Domestic">Domestic</option>
+//               <option value="International">International</option>
+//               <option value="Both">Both</option>
+//             </select>
+//           </div> */}
+
+//           {/* Language */}
+//           {/* <div className="flex flex-col">
+//             <label>Language</label>
+//             <select
+//               value={language}
+//               onChange={(e) => setLanguage(e.target.value)}
+//               className="w-full h-9 pl-2 text-black outline-none rounded"
+//             >
+//               <option value="">Select Language</option>
+//               <option value="English">English</option>
+//               <option value="Hindi">Hindi</option>
+//               <option value="French">French</option>
+//               <option value="German">German</option>
+//             </select>
+//           </div> */}
+
+//           {/* Bio (Covering all areas) */}
+//           <div className="flex flex-col col-span-3">
+//             <label>Bio</label>
+//             <textarea
+//               value={bio}
+//               onChange={(e) => setBio(e.target.value)}
+//               className="w-full h-24 pl-2 py-1 text-black outline-none rounded"
+//             />
+//           </div>

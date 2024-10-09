@@ -6,7 +6,6 @@ import { Country, State, City } from "country-state-city";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  
 
   // State for each input field
   const [username, setUsername] = useState("");
@@ -19,7 +18,7 @@ const SignUp = () => {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
-  const [travelPreference, setTravelPreference] = useState("" );
+  const [travelPreference, setTravelPreference] = useState("");
   const [language, setLanguage] = useState("");
   const [bio, setBio] = useState("");
   // Error state for validation
@@ -27,10 +26,8 @@ const SignUp = () => {
 
   const countries = Country.getAllCountries();
   const states = State.getStatesOfCountry(country);
-  const cities = City.getCitiesOfState(country,state);
+  const cities = City.getCitiesOfState(country, state);
 
-
-console.log(  country,states);
   // Basic validation function
   const validate = () => {
     let validationErrors = {};
@@ -46,8 +43,6 @@ console.log(  country,states);
     } else if (!username.includes('@') && !username.includes('_')) {
       validationErrors.username = "Username must contain at least one @ or _ character.";
     }
-    
-    
 
     // Name validation
     if (!name.trim()) {
@@ -88,24 +83,25 @@ console.log(  country,states);
     if (!state.trim()) validationErrors.state = "State is required";
 
     // Password validation
-   // Password validation
-if (!password.trim()) {
-  validationErrors.password = "Password is required";
-} else if (password.length < 6) {
-  validationErrors.password = "Password must be at least 6 characters";
-} else if (!/[0-9]/.test(password)) {
-  validationErrors.password = "Password must contain at least one number";
-} else if (!/[A-Z]/.test(password)) {
-  validationErrors.password = "Password must contain at least one uppercase letter";
-} else if (!/[a-z]/.test(password)) {
-  validationErrors.password = "Password must contain at least one lowercase letter";
-} else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-  validationErrors.password = "Password must contain at least one special character";
-}
+    if (!password.trim()) {
+      validationErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      validationErrors.password = "Password must be at least 6 characters";
+    } else if (!/[0-9]/.test(password)) {
+      validationErrors.password = "Password must contain at least one number";
+    } else if (!/[A-Z]/.test(password)) {
+      validationErrors.password = "Password must contain at least one uppercase letter";
+    } else if (!/[a-z]/.test(password)) {
+      validationErrors.password = "Password must contain at least one lowercase letter";
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      validationErrors.password = "Password must contain at least one special character";
+    }
 
     return validationErrors;
   };
+
   const today = new Date().toISOString().split("T")[0];
+
   // Handle form submission
   const FormHandle = (e) => {
     e.preventDefault();
@@ -126,9 +122,7 @@ if (!password.trim()) {
         state,
         country,
         password,
-        travelPreference,
-        language,
-        bio,
+        
       })
     );
 
@@ -151,16 +145,16 @@ if (!password.trim()) {
 
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-cover">
-    <img className="absolute z-0 w-screen h-screen " src='/one.webp' alt="" />
+      <img className="absolute z-0 w-screen h-screen " src='./public/one.webp' alt="" />
     
-    {/* Reduced the height of this div */}
-    <div className="relative z-1 w-full md:w-3/4 lg:w-2/3 bg-stone-300 bg-opacity-80 px-10 py-2 rounded">
-      <div className="py-1">
-        <h1 className="text-center text-2xl font-bold">Sign-Up</h1>
-      </div>
+      {/* Reduced the height of this div */}
+      <div className="relative z-1 w-full md:w-3/4 lg:w-2/3 bg-stone-300 bg-opacity-80 px-10 py-3 rounded">
+        <div className="py-1">
+          <h1 className="text-center text-2xl font-bold">Sign-Up</h1>
+        </div>
       
-      <form onSubmit={FormHandle} className="grid grid-cols-1 md:grid-cols-3 gap-3 gap-x-10">
-          {/* Username */}
+        <form onSubmit={FormHandle} className="grid grid-cols-1 md:grid-cols-2 gap-3 gap-x-14">
+          {/* First Column */}
           <div className="flex flex-col">
             <label>Username</label>
             <input
@@ -172,7 +166,6 @@ if (!password.trim()) {
             {errors.username && <span className="text-red-500">{errors.username}</span>}
           </div>
 
-          {/* Name */}
           <div className="flex flex-col">
             <label>Name</label>
             <input
@@ -184,7 +177,6 @@ if (!password.trim()) {
             {errors.name && <span className="text-red-500">{errors.name}</span>}
           </div>
 
-          {/* Email */}
           <div className="flex flex-col">
             <label>Email</label>
             <input
@@ -196,7 +188,6 @@ if (!password.trim()) {
             {errors.email && <span className="text-red-500">{errors.email}</span>}
           </div>
 
-          {/* Gender */}
           <div className="flex flex-col">
             <label>Gender</label>
             <select
@@ -212,21 +203,18 @@ if (!password.trim()) {
             {errors.gender && <span className="text-red-500">{errors.gender}</span>}
           </div>
 
-          {/* Date of Birth */}
-        <div className="flex flex-col">
-          <label>Date Of Birth</label>
-          <input
-            type="date"
-            value={dob}
-            onChange={(e) => setDob(e.target.value)}
-            className="w-full h-9 pl-2 text-black outline-none rounded"
-            max={today} // Set max attribute to today's date
-          />
-          {errors.dob && <span className="text-red-500">{errors.dob}</span>}
-        </div>
+          <div className="flex flex-col">
+            <label>Date Of Birth</label>
+            <input
+              type="date"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+              className="w-full h-9 pl-2 text-black outline-none rounded"
+              max={today} // Set max attribute to today's date
+            />
+            {errors.dob && <span className="text-red-500">{errors.dob}</span>}
+          </div>
 
-
-          {/* Phone Number */}
           <div className="flex flex-col">
             <label>Phone Number</label>
             <input
@@ -238,8 +226,8 @@ if (!password.trim()) {
             {errors.phone && <span className="text-red-500">{errors.phone}</span>}
           </div>
 
-         {/* Country */}
-         <div className="flex flex-col">
+          {/* Second Column */}
+          <div className="flex flex-col">
             <label>Country</label>
             <select
               value={country}
@@ -256,14 +244,13 @@ if (!password.trim()) {
             {errors.country && <span className="text-red-500">{errors.country}</span>}
           </div>
 
-          {/* State */}
           <div className="flex flex-col">
             <label>State</label>
             <select
               value={state}
               onChange={(e) => setState(e.target.value)}
               className="w-full h-9 pl-2 text-black outline-none rounded"
-              disabled={!country}
+              disabled={!country} // Disable until a country is selected
             >
               <option value="">Select State</option>
               {states.map((state) => (
@@ -275,18 +262,17 @@ if (!password.trim()) {
             {errors.state && <span className="text-red-500">{errors.state}</span>}
           </div>
 
-          {/* City */}
           <div className="flex flex-col">
             <label>City</label>
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
               className="w-full h-9 pl-2 text-black outline-none rounded"
-              disabled={!state}
+              disabled={!state} // Disable until a state is selected
             >
               <option value="">Select City</option>
               {cities.map((city) => (
-                <option key={city.name} value={city.name}>
+                <option key={city.id} value={city.name}>
                   {city.name}
                 </option>
               ))}
@@ -294,7 +280,6 @@ if (!password.trim()) {
             {errors.city && <span className="text-red-500">{errors.city}</span>}
           </div>
 
-          {/* Password */}
           <div className="flex flex-col">
             <label>Password</label>
             <input
@@ -306,61 +291,29 @@ if (!password.trim()) {
             {errors.password && <span className="text-red-500">{errors.password}</span>}
           </div>
 
-          {/* Travel Preference */}
-          <div className="flex flex-col">
-            <label>Travel Preference</label>
-            <select
-              value={travelPreference}
-              onChange={(e) => setTravelPreference(e.target.value)}
-              className="w-full h-9 pl-2 text-black outline-none rounded"
-            >
-              <option value="">Select Travel Preference</option>
-              <option value="Domestic">Domestic</option>
-              <option value="International">International</option>
-              <option value="Both">Both</option>
-            </select>
-          </div>
+          
 
-          {/* Language */}
-          <div className="flex flex-col">
-            <label>Language</label>
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              className="w-full h-9 pl-2 text-black outline-none rounded"
-            >
-              <option value="">Select Language</option>
-              <option value="English">English</option>
-              <option value="Hindi">Hindi</option>
-              <option value="French">French</option>
-              <option value="German">German</option>
-            </select>
-          </div>
+          
 
-          {/* Bio (Covering all areas) */}
-          <div className="flex flex-col col-span-3">
-            <label>Bio</label>
-            <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              className="w-full h-24 pl-2 py-1 text-black outline-none rounded"
-            />
-          </div>
-          <div className="flex items-center justify-center col-span-3">
+
+          <div className="col-span-2 flex  items-center justify-center w-full  mt-6">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:scale-[0.97]"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
             >
               Sign Up
             </button>
           </div>
         </form>
-        <div>
-<h5 className="text-center text-stone-800 mt-4 cursor-pointer">
 
-Already have an account ? <NavLink to={"/"} > Login</NavLink> 
-</h5>
-</div>
+        <div className=" w-full mt-2  flex items-center  justify-center text-center">
+          <p>
+            Already have an account?{" "}
+            <NavLink to="/login" className="text-blue-500 hover:underline">
+              Log In
+            </NavLink>
+          </p>
+        </div>
       </div>
     </div>
   );
