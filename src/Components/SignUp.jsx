@@ -105,7 +105,7 @@ if (!password.trim()) {
 
     return validationErrors;
   };
-
+  const today = new Date().toISOString().split("T")[0];
   // Handle form submission
   const FormHandle = (e) => {
     e.preventDefault();
@@ -151,15 +151,15 @@ if (!password.trim()) {
 
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-cover">
-    <img className="absolute z-0 w-screen h-screen " src='./public/one.webp' alt="" />
+    <img className="absolute z-0 w-screen h-screen " src='/one.webp' alt="" />
     
     {/* Reduced the height of this div */}
-    <div className="relative z-1 w-full md:w-3/4 lg:w-2/3 bg-stone-300 bg-opacity-80 px-14 py-2 rounded">
+    <div className="relative z-1 w-full md:w-3/4 lg:w-2/3 bg-stone-300 bg-opacity-80 px-10 py-2 rounded">
       <div className="py-1">
         <h1 className="text-center text-2xl font-bold">Sign-Up</h1>
       </div>
       
-      <form onSubmit={FormHandle} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <form onSubmit={FormHandle} className="grid grid-cols-1 md:grid-cols-3 gap-3 gap-x-10">
           {/* Username */}
           <div className="flex flex-col">
             <label>Username</label>
@@ -213,16 +213,18 @@ if (!password.trim()) {
           </div>
 
           {/* Date of Birth */}
-          <div className="flex flex-col">
-            <label>Date Of Birth</label>
-            <input
-              type="date"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              className="w-full h-9 pl-2 text-black outline-none rounded"
-            />
-            {errors.dob && <span className="text-red-500">{errors.dob}</span>}
-          </div>
+        <div className="flex flex-col">
+          <label>Date Of Birth</label>
+          <input
+            type="date"
+            value={dob}
+            onChange={(e) => setDob(e.target.value)}
+            className="w-full h-9 pl-2 text-black outline-none rounded"
+            max={today} // Set max attribute to today's date
+          />
+          {errors.dob && <span className="text-red-500">{errors.dob}</span>}
+        </div>
+
 
           {/* Phone Number */}
           <div className="flex flex-col">
