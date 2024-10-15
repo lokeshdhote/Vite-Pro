@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AsynSignIn } from "../Store/Actions/UserAction";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState(""); // Combine username and email into one field
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -34,15 +39,7 @@ if (!password.trim()) {
   validationErrors.password = "Password is required";
 } else if (password.length < 6) {
   validationErrors.password = "Password must be at least 6 characters";
-} else if (!/[0-9]/.test(password)) {
-  validationErrors.password = "Password must contain at least one number";
-} else if (!/[A-Z]/.test(password)) {
-  validationErrors.password = "Password must contain at least one uppercase letter";
-} else if (!/[a-z]/.test(password)) {
-  validationErrors.password = "Password must contain at least one lowercase letter";
-} else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-  validationErrors.password = "Password must contain at least one special character";
-}
+} 
 
 
     return validationErrors;
@@ -57,13 +54,16 @@ if (!password.trim()) {
       return;
     }
 
-    // Handle successful login logic here (e.g., API call)
-    console.log("Login successful:", { input, password });
+    dispatch(AsynSignIn({ input, password }))
+   
+    
 
     // Clear form after submission
     setInput("");
     setPassword("");
     setErrors({});
+    // toast.success("sucess")
+    // toast.error("error")
   };
 
   return (

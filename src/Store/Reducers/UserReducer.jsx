@@ -16,11 +16,16 @@ export const userSlice = createSlice({
        
           
             state.user = action.payload;  // Set user data
-            state.isAuth = true;  // Update authentication status
+            state.isAuth = state?.user ? true : false;  // Update authentication status
             state.error = null;
-            state.sucess= true  // Reset error if there is one
+        
         },
-       
+       signIn:(state, action) => {
+        state.user = action.payload;  // Set user data
+        state.isAuth = state?.user ? true : false;  // Update authentication status
+        state.error = null;
+       },
+
         setError: (state, action) => {
             state.error = action.payload;  // Store any errors
         }
@@ -29,4 +34,4 @@ export const userSlice = createSlice({
 
 export default userSlice.reducer;  // Export the reducer function
 
-export const { signUp, signOut, setError } = userSlice.actions;  // Export actions
+export const { signUp, signOut, setError,signIn } = userSlice.actions;  // Export actions
