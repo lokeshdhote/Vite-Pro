@@ -6,6 +6,7 @@ const LoginPanel = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
+  // Validation logic
   const validateForm = () => {
     const newErrors = {};
     if (!usernameEmail) {
@@ -24,42 +25,121 @@ const LoginPanel = () => {
       setErrors(formErrors);
     } else {
       setErrors({});
-      // Proceed with form submission
       console.log('Form submitted', { usernameEmail, password });
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen">
+    <div className="flex flex-col lg:flex-row h-screen">
+      
       {/* Sidebar */}
-      <div className="w-full md:w-1/3 lg:w-1/4 bg-blue-50 flex flex-col justify-start items-center py-10 md:py-20">
+      <div className="
+        w-full  
+        gap-4
+        flex-col-reverse            /* Full width on mobile */
+        lg:w-1/4            /* 1/4 width on large screens */
+       lg:bg-blue-50          /* Light blue background */
+        flex 
+        justify-start
+        items-center
+     
+        lg:flex-col             /* Padding top on mobile */
+        lg:pt-20            /* Larger padding top on desktop */
+      ">
         {/* Logo */}
-        <img src='./public/logo.png' alt="CoTravels Logo" className="w-28 md:w-[13vw] h-auto mb-6 md:mb-10" />
+        <img 
+          src='./public/logo.png' 
+          alt="CoTravels Logo" 
+          className="
+            w-[35vw]         /* Logo width on mobile */
+            h-auto 
+            lg:w-[13vw]      /* Logo width on large screens */
+            mb-6             /* Margin bottom on mobile */
+            lg:mb-10         /* Larger margin bottom on desktop */
+          " 
+        />
 
         {/* Login Text */}
-        <div className="">
-          <div className='flex gap-2'>
-            <i className="ri-checkbox-circle-line text-xl md:text-2xl font-[500] text-blue-600"></i>
-            <h2 className="font-[600] text-lg md:text-[1.1vw]">Login</h2>
+        <div className="text-center w-full bg-[#ccecf4]
+        lg:bg-blue-50
+        ">
+          <div className="flex gap-2 justify-center  py-2 ">
+            <i className="
+            text-[#3689a3]
+              ri-checkbox-circle-line 
+              text-2xl 
+              font-[500] 
+              lg-text-blue-600
+            "></i>
+            <h2 className="
+              font-[600] 
+              
+              text-lg          /* Font size on mobile */
+              lg:text-[1.1vw]  /* Font size on large screens */
+            ">
+              Login
+            </h2>
           </div>
-          <p className="text-gray-400 mt-1 text-sm md:text-base">Enter your credentials to login</p>
+          <p className="
+            text-gray-400 
+            mt-1 
+            hidden
+            text-sm            /* Font size on mobile */
+            lg:text-base       /* Font size on large screens */
+            lg:inline
+          ">
+            Enter your credentials to login
+          </p>
         </div>
       </div>
 
       {/* Login Form */}
-      <div className="w-full md:w-2/3 lg:w-3/4 flex flex-col items-center justify-center p-6 md:p-10">
+      <div className="
+        w-full              /* Full width on mobile */
+        lg:w-3/4            /* 3/4 width on large screens */
+        flex flex-col
+        items-center
+        justify-center
+        p-4                 /* Padding on mobile */
+        lg:p-10             /* Larger padding on desktop */
+      ">
         <div className="w-full max-w-md">
           {/* Form Title */}
-          <div className="mb-6 md:mb-8 flex flex-col items-center justify-center">
-            <h2 className='text-3xl md:text-4xl font-[500]'><i className="ri-login-box-line"></i></h2>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Login</h1>
-            <p className="text-gray-500 text-sm md:text-base">Enter your username or email and password</p>
+          <div className="
+            mb-6              /* Margin bottom on mobile */
+            lg:mb-8           /* Larger margin bottom on desktop */
+            flex flex-col
+            items-center
+            justify-center
+          ">
+            <h2 className="text-4xl font-[500]">
+              <i className="ri-login-box-line"></i>
+            </h2>
+            <h1 className="
+              text-2xl         /* Font size on mobile */
+              lg:text-3xl      /* Font size on large screens */
+              font-bold 
+              text-gray-800
+            ">
+              Login
+            </h1>
+            <p className="
+              text-gray-500 
+              text-sm           /* Font size on mobile */
+              lg:text-base      /* Font size on large screens */
+            ">
+              Enter your username or email and password
+            </p>
           </div>
 
           {/* Form Fields */}
           <form onSubmit={handleSubmit}>
-            <div className="mb-4 md:mb-6">
-              <label htmlFor="usernameEmail" className="block text-gray-700 font-medium">
+            <div className="mb-4 lg:mb-6">
+              <label htmlFor="usernameEmail" className="
+                block 
+                text-gray-700 
+                font-medium
+              ">
                 Username or Email*
               </label>
               <input
@@ -68,15 +148,36 @@ const LoginPanel = () => {
                 value={usernameEmail}
                 onChange={(e) => setUsernameEmail(e.target.value)}
                 placeholder="Enter your username or email"
-                className="mt-1 md:mt-2 block w-full px-3 md:px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="
+                  mt-2
+                  block 
+                  w-full 
+                  px-3               /* Padding on mobile */
+                  lg:px-4            /* Larger padding on desktop */
+                  py-2 
+                  border 
+                  border-gray-300 
+                  rounded-md 
+                  shadow-sm 
+                  focus:outline-none 
+                  focus:ring-2 
+                  focus:ring-blue-500 
+                  focus:border-blue-500
+                "
               />
               {errors.usernameEmail && (
-                <p className="text-red-500 text-sm">{errors.usernameEmail}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.usernameEmail}
+                </p>
               )}
             </div>
 
-            <div className="mb-4 md:mb-6">
-              <label htmlFor="password" className="block text-gray-700 font-medium">
+            <div className="mb-4 lg:mb-6">
+              <label htmlFor="password" className="
+                block 
+                text-gray-700 
+                font-medium
+              ">
                 Password*
               </label>
               <input
@@ -85,16 +186,41 @@ const LoginPanel = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="mt-1 md:mt-2 block w-full px-3 md:px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="
+                  mt-2
+                  block 
+                  w-full 
+                  px-3               /* Padding on mobile */
+                  lg:px-4            /* Larger padding on desktop */
+                  py-2 
+                  border 
+                  border-gray-300 
+                  rounded-md 
+                  shadow-sm 
+                  focus:outline-none 
+                  focus:ring-2 
+                  focus:ring-blue-500 
+                  focus:border-blue-500
+                "
               />
               {errors.password && (
-                <p className="text-red-500 text-sm">{errors.password}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.password}
+                </p>
               )}
             </div>
 
             {/* Forgot Password */}
-            <div className="text-right mb-4 md:mb-6">
-              <NavLink href="#" className="text-blue-500 hover:underline text-sm">
+            <div className="
+              text-right 
+              mb-4              /* Margin bottom on mobile */
+              lg:mb-6           /* Larger margin bottom on desktop */
+            ">
+              <NavLink href="#" className="
+                text-blue-500 
+                hover:underline 
+                text-sm
+              ">
                 Forgot Password?
               </NavLink>
             </div>
@@ -102,16 +228,29 @@ const LoginPanel = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white font-medium py-2 md:py-3 rounded-md hover:bg-blue-700 transition duration-300"
+              className="
+                w-full 
+                bg-blue-600 
+                text-white 
+                font-medium 
+                py-2              /* Padding on mobile */
+                rounded-md 
+                hover:bg-blue-700 
+                transition 
+                duration-300
+              "
             >
               Log In
             </button>
 
             {/* Sign Up Link */}
             <div className="mt-4 text-center">
-              <p className="text-gray-500 text-sm md:text-base">
+              <p className="text-gray-500">
                 Don't have an account?{' '}
-                <NavLink to={"/SignUp"} className="text-blue-500 hover:underline">
+                <NavLink to={"/SignUp"} className="
+                  text-blue-500 
+                  hover:underline
+                ">
                   Sign up
                 </NavLink>
               </p>
