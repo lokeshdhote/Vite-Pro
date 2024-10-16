@@ -9,13 +9,14 @@ const Demo = () => {
   const [activeStep, setActiveStep] = useState(1); // Start with the "Your details" step active.
 
   // Separate useState for each form field
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
+  const [name , setName] = useState("")
   const [email, setEmail] = useState('');
   const [phone_number, setphone_number] = useState('');
-  const [language, setLanguage] = useState('');
+  const [languages_spoken, setLanguage] = useState('');
   const [gender, setGender] = useState('');
-  const [travelPreference, setTravelPreference] = useState('');
+  const [travel_preferences, setTravelPreference] = useState('');
   const [bio, setBio] = useState('');
   const [date_of_birth, setdate_of_birth] = useState('');
   const [country, setCountry] = useState('');
@@ -42,22 +43,17 @@ const Demo = () => {
   const validate = () => {
     const validationErrors = {};
 
-    // Name validation
-    if (!firstName.trim()) {
-        validationErrors.firstName = "First name is required.";
-    } else if (firstName.length < 2) {
-        validationErrors.firstName = "First name must be at least 3 characters long.";
-    } else if (!/^[A-Za-z]+(?: [A-Za-z]+)?$/.test(firstName)) {
-        validationErrors.firstName = "First name must contain only letters.";
+
+   // Name validation
+    if (!name.trim()) {
+      validationErrors.name = "Name is required";
+    } else if (name.length < 3) {
+      validationErrors.name = "Name must be at least 3 characters";
+    } else if (!/^[A-Za-z]+(?: [A-Za-z]+)?$/.test(name)) {
+      validationErrors.name = "Name can only contain letters and one space between words";
     }
     
-    if (!lastName.trim()) {
-        validationErrors.lastName = "Last name is required.";
-    } else if (lastName.length < 3) {
-        validationErrors.lastName = "Last name must be at least 5 characters long.";
-    } else if (!/^[A-Za-z]+(?: [A-Za-z]+)?$/.test(lastName)) {
-        validationErrors.lastName = "Last name must contain only letters.";
-    }
+   
 
     // Email validation
     if (!email.trim()) {
@@ -151,8 +147,7 @@ const Demo = () => {
     }
     dispatch( AsynSignUp({
   username,
-  firstName,
-  lastName,
+name,
   email,
   gender,
   date_of_birth,
@@ -161,16 +156,15 @@ const Demo = () => {
   state,
   country,
   password,
-  language,
-  travelPreference,
+  languages_spoken,
+  travel_preferences,
   bio,
 }) );
 // console.log( );
 
     // Clear form after submission
     setUsername("");
-    setFirstName("");
-    setLastName("");
+setName(""),
     setEmail("");
     setGender("");
     setdate_of_birth("");
@@ -234,15 +228,11 @@ const Demo = () => {
               </div>
               <form>
                 <div className="mb-4">
-                  <label htmlFor="firstName" className="block text-gray-700 font-medium">First name*</label>
-                  <input id="firstName" type="text" placeholder="Enter your first name" value={firstName}  onChange={(e) => setFirstName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-                  {errors.firstName && <p className="text-red-600 text-sm">{errors.firstName}</p>}
+                  <label htmlFor="name" className="block text-gray-700 font-medium"> name*</label>
+                  <input id="name" type="text" placeholder="Enter your first name" value={name}  onChange={(e) => setName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
                 </div>
-                <div className="mb-4">
-                  <label htmlFor="lastName" className="block text-gray-700 font-medium">Last name*</label>
-                  <input id="lastName" type="text" placeholder="Enter your last name" value={lastName}  onChange={(e) => setLastName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-                  {errors.lastName && <p className="text-red-600 text-sm">{errors.lastName}</p>}
-                </div>
+             
                 <div className="mb-4">
                   <label htmlFor="email" className="block text-gray-700 font-medium">Email*</label>
                   <input id="email" type="email" placeholder="Enter your Email" value={email}  onChange={(e) => setEmail(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
@@ -257,7 +247,7 @@ const Demo = () => {
   <label htmlFor="language" className="block text-gray-700 font-medium">Language spoken*</label>
   <select
     id="language"
-    value={language}
+    value={languages_spoken}
     onChange={(e) => setLanguage(e.target.value)}
     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
   >
@@ -308,7 +298,7 @@ const Demo = () => {
   <label htmlFor="travelPreference" className="block text-gray-700 font-medium">Travel Preference*</label>
   <select
     id="travelPreference"
-    value={travelPreference}
+    value={ travel_preferences}
     onChange={(e) => setTravelPreference(e.target.value)}
     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
   >

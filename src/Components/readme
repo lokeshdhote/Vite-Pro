@@ -242,7 +242,9 @@
 //       <label>City</label>
 //       <select
 //         value={city}
+
 //         onChange={(e) => setCity(e.target.value)}
+
 //         className="w-full h-9 pl-2 text-black outline-none rounded"
 //         disabled={!state} // Disable until a state is selected
 //       >
