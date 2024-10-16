@@ -58,7 +58,7 @@ const LoginPanel = () => {
           src='/logo.png' 
           alt="CoTravels Logo" 
           className="
-            w-[35vw]         /* Logo width on mobile */
+            w-[36vw]         /* Logo width on mobile */
             h-auto 
             lg:w-[13vw]      /* Logo width on large screens */
             mb-6             /* Margin bottom on mobile */
@@ -68,7 +68,7 @@ const LoginPanel = () => {
 
         {/* Login Text */}
         <div className="text-center w-full bg-[#ccecf4]
-        lg:bg-blue-50
+        lg:bg-blue-50 lg:flex items-start flex-col px-[5vw]
         ">
           <div className="flex gap-2 justify-center  py-2 ">
             <i className="
@@ -76,6 +76,7 @@ const LoginPanel = () => {
               ri-checkbox-circle-line 
               text-2xl 
               font-[500] 
+             
               lg-text-blue-600
             "></i>
             <h2 className="
@@ -219,12 +220,12 @@ const LoginPanel = () => {
 
             {/* Forgot Password */}
             <div className="
-              text-right 
+              text-left 
               mb-4              /* Margin bottom on mobile */
               lg:mb-6           /* Larger margin bottom on desktop */
             ">
-              <NavLink href="#" className="
-                text-blue-500 
+              <NavLink  className="
+                text-[#3689a3] no-underline font-[500]
                 hover:underline 
                 text-sm
               ">
@@ -237,12 +238,12 @@ const LoginPanel = () => {
               type="submit"
               className="
                 w-full 
-                bg-blue-600 
+                bg-[#3689a3]
                 text-white 
                 font-medium 
                 py-2              /* Padding on mobile */
                 rounded-md 
-                hover:bg-blue-700 
+              
                 transition 
                 duration-300
               "
@@ -252,10 +253,10 @@ const LoginPanel = () => {
 
             {/* Sign Up Link */}
             <div className="mt-4 text-center">
-              <p className="text-gray-500">
+              <p className="text-black">
                 Don't have an account?{' '}
                 <NavLink to={"/SignUp"} className="
-                  text-blue-500 
+                  text-[#3689a3] font-[600]
                   hover:underline
                 ">
                   Sign up

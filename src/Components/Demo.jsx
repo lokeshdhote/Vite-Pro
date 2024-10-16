@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { AsynSignUp } from '../Store/Actions/UserAction';
 import { Country, State, City } from "country-state-city";
+import { NavLink } from 'react-router-dom';
 
 const Demo = () => {
   const dispatch = useDispatch()
@@ -132,7 +133,7 @@ const Demo = () => {
 
   const OnFinish = (e)=>{
     e.preventDefault();
-    if (!username || !email || !password) {
+    if (!username || !email && !password) {
       toast.error("Please fill in all required fields.");
      } 
     const validationErrors = validate();
@@ -206,10 +207,10 @@ const Demo = () => {
             >
                <div>
                  <div className='flex gap-3 items-center '>
-                   <span className={`text-2xl font-[500] ${activeStep === step ? 'text-blue-600' : 'text-gray-400'}`}>
+                   <span className={`text-2xl font-[500] ${activeStep === step ? 'text-[#3689a3]' : 'text-gray-400'}`}>
                      <i className="ri-checkbox-circle-line"></i>
                    </span>
-                   <h2 className={`w-full text-[2.8vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:text-[1.1vw] ${activeStep === step ? 'inline' : 'hidden'}
+                   <h2 className={`w-full text-[2.8vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:text-[1.1vw] ${activeStep === step ? 'inline text-black' : 'hidden text-gray-400'}
                    lg:inline `}>
                     {step === 1 ? "Your details" :
                      step === 2 ? "Personal Information" :
@@ -280,8 +281,19 @@ const Demo = () => {
   {errors.language && <p className="text-red-600 text-sm">{errors.language}</p>}
 </div>
 
-                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Next</button>
+                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-[#3689a3] rounded-md ">Next</button>
               </form>
+              <div className="mt-4 text-center">
+              <p className="text-black">
+              Already have an account?{' '}
+                <NavLink to={"/"} className="
+                 text-[#3689a3] font-[600]
+                  hover:underline
+                ">
+               Login
+                </NavLink>
+                </p>
+                </div>
             </div>
           )}
 
@@ -337,7 +349,7 @@ const Demo = () => {
                    <textarea id="bio" placeholder="Tell us about yourself" value={bio}  onChange={(e) => setBio(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                    {errors.bio && <p className="text-red-600 text-sm">{errors.bio}</p>}
                  </div>
-                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Next</button>
+                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-[#3689a3] rounded-md ">Next</button>
               </form>
             </div>
           )}
@@ -390,7 +402,7 @@ const Demo = () => {
                   {errors.city && <p className="text-red-600 text-sm">{errors.city}</p>}
                 </div>
 
-                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Next</button>
+                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-[#3689a3] rounded-md">Next</button>
               </form>
             </div>
           )}
@@ -418,7 +430,7 @@ const Demo = () => {
 
                 
 
-                <button type="submit" className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Sign Up</button>
+                <button type="submit" className="w-full py-2 text-white bg-[#3689a3] rounded-md ">Sign Up</button>
               </form>
             </div>
           )}
