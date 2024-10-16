@@ -48,7 +48,7 @@ const LoginPanel = () => {
       ">
         {/* Logo */}
         <img 
-          src='./public/logo.png' 
+          src='/logo.png' 
           alt="CoTravels Logo" 
           className="
             w-[35vw]         /* Logo width on mobile */
