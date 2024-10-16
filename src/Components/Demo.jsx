@@ -178,7 +178,7 @@ const Demo = () => {
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Sidebar */}
       <div className="
-        w-full  
+            w-full  
         gap-4
       
         flex-col-reverse            /* Full width on mobile */
@@ -193,39 +193,38 @@ const Demo = () => {
       ">
         <div className="mb-8">
           {/* Logo */}
-          <img src='/logo.png' alt="CoTravels Logo" className="w-32 lg:w-[13vw] h-auto mx-auto lg:mx-0" />
+          <img src='/logo.png' alt="CoTravels Logo" className="w-[35vw] lg:w-[13vw] h-auto mx-auto lg:mx-0" />
         </div>
 
-        <div className="py-2 flex lg:flex-col lg:space-y-6 lg:pt-5 bg-[#ccecf4] w-full lg:bg-blue-50">
-  {/* Steps */}
-  {[1, 2, 3, 4].map((step) => (
-    <div
-      key={step}
-      onClick={() => handleStepClick(step)}
-      className={`flex items-center cursor-pointer  p-4 rounded-md `}
-    >
-      <div className="flex items-center space-x-3">
-        <span className={`text-2xl font-[500] ${activeStep === step ? 'text-blue-600' : 'text-gray-400'}`}>
-          <i className="ri-checkbox-circle-line"></i>
-        </span>
-        <h2 className={`w-full text-[2.7vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:inline lg:text-[1.1vw] ${activeStep === step ? 'inline' : 'hidden'} `}>
-          {step === 1 ? "Your details" :
-          step === 2 ? "Personal Information" :
-          step === 3 ? "Location" : "Account Security"}
-        </h2>
-      </div>
-      {/* Show description only for the active step */}
-      {activeStep === step && (
-        <p className="lg:inline text-gray-400 mt-1 text-sm lg:text-base hidden ">
-          {step === 1 ? "Please provide your name and contact" :
-          step === 2 ? "Tell us more about yourself" :
-          step === 3 ? "Share your location details" :
-          "Set up your username and password"}
-        </p>
-      )}
-    </div>
-  ))}
-</div>
+        <div className="py-2 px-4 flex lg:flex-col lg:space-y-6 lg:pt-5 bg-[#ccecf4] w-full lg:bg-blue-50">
+          {/* Steps */}
+           {[1, 2, 3, 4].map((step) => (
+             <div
+               key={step}
+               onClick={() => handleStepClick(step)}
+               className="flex items-center  space-x-4 cursor-pointer lg:px-1 px-2 pt-2 ml-[4vw] "
+            >
+               <div>
+                 <div className='flex gap-3 items-center '>
+                   <span className={`text-2xl font-[500] ${activeStep === step ? 'text-blue-600' : 'text-gray-400'}`}>
+                     <i className="ri-checkbox-circle-line"></i>
+                   </span>
+                   <h2 className={`w-full text-[2.8vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:text-[1.1vw] ${activeStep === step ? 'inline' : 'hidden'}
+                   lg:inline `}>
+                    {step === 1 ? "Your details" :
+                     step === 2 ? "Personal Information" :
+                       step === 3 ? "Location" :
+                       "Account Security"}
+                       </h2>
+                 </div>
+                 <p className="text-gray-400 mt-1 hidden lg:inline">{step === 1 ? "Please provide your name and contact" :
+                   step === 2 ? "Tell us more about yourself" :
+                     step === 3 ? "Share your location details" :
+                     "Set up your username and password"}</p>
+               </div>
+             </div>
+           ))}
+         </div>
 
       </div>
 
