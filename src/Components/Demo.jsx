@@ -12,7 +12,7 @@ const Demo = () => {
   const [name , setName] = useState("")
   const [email, setEmail] = useState('');
   const [phone_number, setphone_number] = useState('');
-  const [languages_spoken, setLanguage] = useState('');
+  const [languages_spoken, setLanguage] = useState([]);
   const [gender, setGender] = useState('');
   const [travel_preferences, setTravelPreference] = useState('');
   const [bio, setBio] = useState('');
@@ -28,6 +28,63 @@ const Demo = () => {
   const countries = Country.getAllCountries();
   const states = State.getStatesOfCountry(country);
   const cities = City.getCitiesOfState(country, state);
+
+  const [travelPreferences, setTravelPreferences] = useState([]);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+ 
+
+
+
+  const languages = [
+    "English", "Spanish", "French", "German", "Hindi", 
+    "Mandarin", "Arabic", "Russian", "Portuguese", "Japanese"
+  ];
+
+  const preferences = [
+    "Business Travel", "Leisure Travel", "Adventure Travel", 
+    "Solo Travel", "Family Vacation", "Group Travel", 
+    "Luxury Travel", "Budget Travel", "Cruise"
+  ];
+
+  const handleCheckboxChange2 = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      if (travelPreferences.length < 7) { // Maximum of 7 selections
+        setTravelPreferences([...travelPreferences, value]);
+        setErrors({}); // Clear any previous errors
+      } else {
+        setErrors({ travel: "You can select up to 7 travel preferences only." });
+      }
+    } else {
+      setTravelPreferences(travelPreferences.filter(pref => pref !== value));
+    }
+  };
+  const handleCheckboxChange1 = (e) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      if (languages_spoken.length + 1 === 5) {
+        setIsDropdownOpen(false);
+      }
+      if (languages_spoken.length < 5) {
+        setLanguage([...languages_spoken, value]);
+        setErrors({}); // Clear any previous errors
+      } else {
+        setErrors({ language: "You can select up to 5 languages only." });
+      }
+    } else {
+      setLanguage(languages_spoken.filter(lang => lang !== value));
+    }
+  };
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+
+
 
   const handleStepClick = (step) => {
     setActiveStep(step);
@@ -258,29 +315,43 @@ const Demo = () => {
                   {errors.phone_number && <p className="text-red-600 text-sm">{errors.phone_number}</p>}
                 </div>
                 <div className="mb-6">
-  <label htmlFor="language" className="block text-gray-700 font-medium">Language spoken*</label>
-  <select
-    id="language"
-    value={languages_spoken}
-    onChange={(e) => setLanguage(e.target.value)}
-    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-  >
-    <option value="">Select your preferred language</option>
-    <option value="English">English</option>
-    <option value="Spanish">Spanish</option>
-    <option value="French">French</option>
-    <option value="German">German</option>
-    <option value="Hindi">Hindi</option>
-    <option value="Mandarin">Mandarin</option>
-    <option value="Arabic">Arabic</option>
-    <option value="Russian">Russian</option>
-    <option value="Portuguese">Portuguese</option>
-    <option value="Japanese">Japanese</option>
-    {/* Add more language options as needed */}
-  </select>
-  {errors.language && <p className="text-red-600 text-sm">{errors.language}</p>}
-</div>
+      <label className="block text-gray-700 font-medium">Languages spoken*</label>
 
+      {/* Dropdown */}
+      <div className="relative">
+        <div
+          onClick={handleDropdownToggle} // Toggle dropdown on click
+          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+        >
+          {/* Show selected languages */}
+          {languages_spoken.length > 0 
+            ? languages_spoken.join(', ') 
+            : "Select your preferred languages"}
+        </div>
+
+        {/* Dropdown content (checkbox list) */}
+        {isDropdownOpen && ( // Conditionally render dropdown content
+          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+            {languages.map((language, index) => (
+              <div key={index} className="flex items-center p-2 hover:bg-gray-100">
+                <input
+                  type="checkbox"
+                  id={language}
+                  value={language}
+                  checked={languages_spoken.includes(language)}
+                  onChange={handleCheckboxChange1}
+                  className="mr-2"
+                />
+                <label htmlFor={language} className="text-gray-700">{language}</label>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Show error message if needed */}
+      {errors.language && <p className="text-red-600 text-sm mt-2">{errors.language}</p>}
+    </div>
                 <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-[#3689a3] rounded-md ">Next</button>
               </form>
               <div className="mt-4 text-center">
@@ -321,28 +392,44 @@ const Demo = () => {
                   <input id="date_of_birth" type="date" value={date_of_birth} onChange={(e) => setdate_of_birth(e.target.value)} max={today} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.date_of_birth && <p className="text-red-600 text-sm">{errors.date_of_birth}</p>}
                 </div>
+                <div className="mb-6">
+      <label className="block text-gray-700 font-medium">Travel Preference*</label>
 
-                <div className="mb-4">
-  <label htmlFor="travelPreference" className="block text-gray-700 font-medium">Travel Preference*</label>
-  <select
-    id="travelPreference"
-    value={travel_preferences}
-    onChange={(e) => setTravelPreference(e.target.value)}
-    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-  >
-    <option value="">Select your travel preference</option>
-    <option value="Business Travel">Business Travel</option>
-    <option value="Leisure Travel">Leisure Travel</option>
-    <option value="Adventure Travel">Adventure Travel</option>
-    <option value="Solo Travel">Solo Travel</option>
-    <option value="Family Vacation">Family Vacation</option>
-    <option value="Group Travel">Group Travel</option>
-    <option value="Luxury Travel">Luxury Travel</option>
-    <option value="Budget Travel">Budget Travel</option>
-    <option value="Cruise">Cruise</option>
-    {/* Add more travel preferences if needed */}
-  </select>
-</div>
+      {/* Dropdown */}
+      <div className="relative">
+        <div
+          onClick={handleDropdownToggle} // Toggle dropdown on click
+          className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+        >
+          {/* Show selected travel preferences */}
+          {travelPreferences.length > 0 
+            ? travelPreferences.join(', ') 
+            : "Select your travel preferences"}
+        </div>
+
+        {/* Dropdown content (checkbox list) */}
+        {isDropdownOpen && ( // Conditionally render dropdown content
+          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+            {preferences.map((preference, index) => (
+              <div key={index} className="flex items-center p-2 hover:bg-gray-100">
+                <input
+                  type="checkbox"
+                  id={preference}
+                  value={preference}
+                  checked={travelPreferences.includes(preference)}
+                  onChange={handleCheckboxChange2}
+                  className="mr-2"
+                />
+                <label htmlFor={preference} className="text-gray-700">{preference}</label>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Show error message if needed */}
+      {errors.travel && <p className="text-red-600 text-sm mt-2">{errors.travel}</p>}
+    </div>
 
                 <div className="mb-4">
                   <label htmlFor="bio" className="block text-gray-700 font-medium">Bio*</label>
