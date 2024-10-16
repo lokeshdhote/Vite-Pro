@@ -6,11 +6,8 @@ import { Country, State, City } from "country-state-city";
 
 const Demo = () => {
   const dispatch = useDispatch()
-  const [activeStep, setActiveStep] = useState(1); // Start with the "Your details" step active.
+  const [activeStep, setActiveStep] = useState(1); 
 
-  // Separate useState for each form field
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
   const [name , setName] = useState("")
   const [email, setEmail] = useState('');
   const [phone_number, setphone_number] = useState('');
@@ -24,12 +21,9 @@ const Demo = () => {
   const [city, setCity] = useState('');
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState('');
-  
 
-  // Error state for each field
   const [errors, setErrors] = useState({});
 
-  
   const countries = Country.getAllCountries();
   const states = State.getStatesOfCountry(country);
   const cities = City.getCitiesOfState(country, state);
@@ -37,9 +31,6 @@ const Demo = () => {
   const handleStepClick = (step) => {
     setActiveStep(step);
   };
-
-  
-
   const validate = () => {
     const validationErrors = {};
 
@@ -135,36 +126,40 @@ const Demo = () => {
       setErrors(validationErrors);
       toast.error("Please fill in all required fields."); // Display toast notification
     }
+    
   };
   const today = new Date().toISOString().split("T")[0];
 
   const OnFinish = (e)=>{
     e.preventDefault();
+    if (!username || !email || !password) {
+      toast.error("Please fill in all required fields.");
+     } 
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+
       return;
     }
+  // Display toast notification;
     dispatch( AsynSignUp({
-  username,
-name,
-  email,
-  gender,
-  date_of_birth,
-  phone_number,
-  city,
-  state,
-  country,
-  password,
-  languages_spoken,
-  travel_preferences,
-  bio,
-}) );
-// console.log( );
-
-    // Clear form after submission
+      username,
+      name,
+      email,
+      gender,
+      date_of_birth,
+      phone_number,
+      city,
+      state,
+      country,
+      password,
+      languages_spoken,
+      travel_preferences,
+      bio,
+    }));
+    
     setUsername("");
-setName(""),
+    setName("");
     setEmail("");
     setGender("");
     setdate_of_birth("");
@@ -178,69 +173,88 @@ setName(""),
     setBio("");
     setErrors({});
   };
+
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col lg:flex-row h-screen">
       {/* Sidebar */}
-      <div className="w-1/4 bg-blue-50 p-6 flex flex-col justify-start">
+      <div className="
+        w-full  
+        gap-4
+      
+        flex-col-reverse            /* Full width on mobile */
+        lg:w-1/4            /* 1/4 width on large screens */
+       lg:bg-blue-50          /* Light blue background */
+        flex 
+        justify-start
+        items-center
+     
+        lg:flex-col             /* Padding top on mobile */
+        lg:pt-[4vw]            /* Larger padding top on desktop */
+      ">
         <div className="mb-8">
           {/* Logo */}
-          <img src='/logo.png' alt="CoTravels Logo" className="w-[13vw] h-auto" />
+          <img src='/logo.png' alt="CoTravels Logo" className="w-32 lg:w-[13vw] h-auto mx-auto lg:mx-0" />
         </div>
 
-        <div className="space-y-6 pt-5">
-          {/* Steps */}
-          {[1, 2, 3, 4].map((step) => (
-            <div
-              key={step}
-              onClick={() => handleStepClick(step)}
-              className={`flex items-center space-x-4 cursor-pointer px-8`}
-            >
-              <div>
-                <div className='flex gap-3 items-center'>
-                  <span className={`text-2xl font-[500] ${activeStep === step ? 'text-blue-600' : 'text-gray-400'}`}>
-                    <i className="ri-checkbox-circle-line"></i>
-                  </span>
-                  <h2 className="font-[600] text-[1.1vw] ">{step === 1 ? "Your details" :
-                    step === 2 ? "Personal Information" :
-                      step === 3 ? "Location" :
-                      "Account Security"}</h2>
-                </div>
-                <p className="text-gray-400 mt-1 ">{step === 1 ? "Please provide your name and contact" :
-                  step === 2 ? "Tell us more about yourself" :
-                    step === 3 ? "Share your location details" :
-                    "Set up your username and password"}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <div className="py-2 flex lg:flex-col lg:space-y-6 lg:pt-5 bg-[#ccecf4] w-full lg:bg-blue-50">
+  {/* Steps */}
+  {[1, 2, 3, 4].map((step) => (
+    <div
+      key={step}
+      onClick={() => handleStepClick(step)}
+      className={`flex items-center cursor-pointer  p-4 rounded-md `}
+    >
+      <div className="flex items-center space-x-3">
+        <span className={`text-2xl font-[500] ${activeStep === step ? 'text-blue-600' : 'text-gray-400'}`}>
+          <i className="ri-checkbox-circle-line"></i>
+        </span>
+        <h2 className={`w-full text-[2.7vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:inline lg:text-[1.1vw] ${activeStep === step ? 'inline' : 'hidden'} `}>
+          {step === 1 ? "Your details" :
+          step === 2 ? "Personal Information" :
+          step === 3 ? "Location" : "Account Security"}
+        </h2>
+      </div>
+      {/* Show description only for the active step */}
+      {activeStep === step && (
+        <p className="lg:inline text-gray-400 mt-1 text-sm lg:text-base hidden ">
+          {step === 1 ? "Please provide your name and contact" :
+          step === 2 ? "Tell us more about yourself" :
+          step === 3 ? "Share your location details" :
+          "Set up your username and password"}
+        </p>
+      )}
+    </div>
+  ))}
+</div>
+
       </div>
 
       {/* Form Content */}
-      <div className="w-3/4 flex flex-col items-center justify-center p-10">
+      <div className="w-full lg:w-3/4 flex flex-col items-center justify-center p-4 lg:p-10">
         <div className="w-full max-w-md">
           {/* Form Title and Content based on active step */}
           {activeStep === 1 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-2xl font-[500]'><i className="ri-file-list-2-line"></i></h2>
+                <h2 className='text-3xl font-[500]'><i className="ri-file-list-2-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Your details</h1>
                 <p className="text-gray-500">Please provide your name and contact</p>
               </div>
               <form>
                 <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-700 font-medium"> name*</label>
-                  <input id="name" type="text" placeholder="Enter your first name" value={name}  onChange={(e) => setName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="name" className="block text-gray-700 font-medium">Name*</label>
+                  <input id="name" type="text" placeholder="Enter your first name" value={name} onChange={(e) => setName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
                 </div>
              
                 <div className="mb-4">
                   <label htmlFor="email" className="block text-gray-700 font-medium">Email*</label>
-                  <input id="email" type="email" placeholder="Enter your Email" value={email}  onChange={(e) => setEmail(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <input id="email" type="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="phone_number" className="block text-gray-700 font-medium">phone_number </label>
-                  <input id="phone_number" type="tel" placeholder="Enter your phone_number number" value={phone_number}  onChange={(e) => setphone_number(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <label htmlFor="phone_number" className="block text-gray-700 font-medium">Phone Number*</label>
+                  <input id="phone_number" type="text" placeholder="Enter your Phone Number" value={phone_number} onChange={(e) => setphone_number(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.phone_number && <p className="text-red-600 text-sm">{errors.phone_number}</p>}
                 </div>
                 <div className="mb-6">
@@ -271,34 +285,37 @@ setName(""),
               </form>
             </div>
           )}
+
+          {/* Step 2 - Personal Information */}
           {activeStep === 2 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-2xl font-[500]'><i className="ri-file-user-line"></i></h2>
+                <h2 className='text-3xl font-[500]'><i className="ri-user-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Personal Information</h1>
                 <p className="text-gray-500">Tell us more about yourself</p>
               </div>
               <form>
-                <div className="mb-4">
-                  <label htmlFor="gender" className="block text-gray-700 font-medium">Gender*</label>
+              <div className="mb-4">
+                <label htmlFor="gender" className="block text-gray-700 font-medium">Gender*</label>
                   <select id="gender" value={gender}  onChange={(e) => setGender(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">other</option>
-                  </select>
-                  {errors.gender && <p className="text-red-600 text-sm">{errors.gender}</p>}
-                </div>
+                     <option value="">Select Gender</option>
+                     <option value="male">Male</option>
+                     <option value="female">Female</option>                     <option value="other">other</option>
+                   </select>
+                   {errors.gender && <p className="text-red-600 text-sm">{errors.gender}</p>}
+                 </div>
+
                 <div className="mb-4">
                   <label htmlFor="date_of_birth" className="block text-gray-700 font-medium">Date of Birth*</label>
-                  <input id="date_of_birth"  max={today} type="date" value={date_of_birth}  onChange={(e) => setdate_of_birth(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <input id="date_of_birth" type="date" value={date_of_birth} onChange={(e) => setdate_of_birth(e.target.value)} max={today} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.date_of_birth && <p className="text-red-600 text-sm">{errors.date_of_birth}</p>}
                 </div>
+
                 <div className="mb-4">
   <label htmlFor="travelPreference" className="block text-gray-700 font-medium">Travel Preference*</label>
   <select
     id="travelPreference"
-    value={ travel_preferences}
+    value={travel_preferences}
     onChange={(e) => setTravelPreference(e.target.value)}
     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
   >
@@ -311,120 +328,98 @@ setName(""),
     <option value="Group Travel">Group Travel</option>
     <option value="Luxury Travel">Luxury Travel</option>
     <option value="Budget Travel">Budget Travel</option>
-    <option value="Road Trip">Road Trip</option>
     <option value="Cruise">Cruise</option>
     {/* Add more travel preferences if needed */}
   </select>
-  {errors.travelPreference && <p className="text-red-600 text-sm">{errors.travelPreference}</p>}
 </div>
 
                 <div className="mb-4">
                   <label htmlFor="bio" className="block text-gray-700 font-medium">Bio*</label>
-                  <textarea id="bio" placeholder="Tell us about yourself" value={bio}  onChange={(e) => setBio(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-                  {errors.bio && <p className="text-red-600 text-sm">{errors.bio}</p>}
-                </div>
+                   <textarea id="bio" placeholder="Tell us about yourself" value={bio}  onChange={(e) => setBio(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                   {errors.bio && <p className="text-red-600 text-sm">{errors.bio}</p>}
+                 </div>
                 <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Next</button>
               </form>
             </div>
           )}
+
+          {/* Step 3 - Location */}
           {activeStep === 3 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-2xl font-[500]'><i className="ri-map-pin-line"></i></h2>
+                <h2 className='text-3xl font-[500]'><i className="ri-map-pin-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Location</h1>
                 <p className="text-gray-500">Share your location details</p>
               </div>
               <form>
-              <div className="mb-4">
-  <label htmlFor="country" className="block text-gray-700 font-medium">Country*</label>
-  <select
-    id="country"
-    value={country}
-    onChange={(e) => setCountry(e.target.value)}
-    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-  >
-   <option value="">Select Country</option>
-              {countries.map((country) => (
-                <option key={country.isoCode} value={country.isoCode}>
-                  {country.name}
-                </option>
-              ))}
-  </select>
-  {errors.country && <p className="text-red-600 text-sm">{errors.country}</p>}
-</div>
+                <div className="mb-4">
+                  <label htmlFor="country" className="block text-gray-700 font-medium">Country*</label>
+                  <select id="country" value={country} onChange={(e) => setCountry(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select Country</option>
+                    {countries.map((country) => (
+                      <option key={country.isoCode} value={country.isoCode}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.country && <p className="text-red-600 text-sm">{errors.country}</p>}
+                </div>
 
-<div className="mb-4">
-  <label htmlFor="state" className="block text-gray-700 font-medium">State*</label>
-  <select 
-  disabled={!country}
-    id="state"
-    value={state}
-    onChange={(e) => setState(e.target.value)}
-    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-  >
-     <option value="">Select State</option>
-              {states.map((state) => (
-                <option key={state.isoCode} value={state.isoCode}>
-                  {state.name}
-                </option>
-              ))}
-  </select>
-  {errors.state && <p className="text-red-600 text-sm">{errors.state}</p>}
-</div>
+                <div className="mb-4">
+                  <label htmlFor="state" className="block text-gray-700 font-medium">State*</label>
+                  <select id="state" value={state} onChange={(e) => setState(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select State</option>
+                    {states.map((state) => (
+                      <option key={state.isoCode} value={state.isoCode}>
+                        {state.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.state && <p className="text-red-600 text-sm">{errors.state}</p>}
+                </div>
 
-<div className="mb-4">
-  <label htmlFor="city" className="block text-gray-700 font-medium">City*</label>
-  <select
-    id="city"
-    disabled={!state}
-    value={city}
-    onChange={(e) => setCity(e.target.value)}
-    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-  >
-    <option value="">Select City</option>
-              {cities.map((city) => (
-                <option key={city.id} value={city.name}>
-                  {city.name}
-                </option>
-              ))}
-  </select>
-  {errors.city && <p className="text-red-600 text-sm">{errors.city}</p>}
-</div>
+                <div className="mb-4">
+                  <label htmlFor="city" className="block text-gray-700 font-medium">City*</label>
+                  <select id="city" value={city} onChange={(e) => setCity(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select City</option>
+                    {cities.map((city) => (
+                      <option key={city.name} value={city.name}>
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.city && <p className="text-red-600 text-sm">{errors.city}</p>}
+                </div>
 
                 <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Next</button>
               </form>
             </div>
           )}
+
+          {/* Step 4 - Account Security */}
           {activeStep === 4 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-2xl font-[500]'><i className="ri-lock-line"></i></h2>
+                <h2 className='text-3xl font-[500]'><i className="ri-shield-user-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Account Security</h1>
                 <p className="text-gray-500">Set up your username and password</p>
               </div>
-              <form>
-              <div className="mb-4">
-              <label htmlFor="username" className="block text-gray-700 font-medium">
-                Username*
-              </label>
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
-                className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-               {errors.username && <p className="text-red-600 text-sm">{errors.username}</p>}
-            </div>
+              <form onSubmit={OnFinish}>
+                <div className="mb-4">
+                  <label htmlFor="username" className="block text-gray-700 font-medium">Username*</label>
+                  <input id="username" type="text" placeholder="Choose your username" value={username} onChange={(e) => setUsername(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  {errors.username && <p className="text-red-600 text-sm">{errors.username}</p>}
+                </div>
+
                 <div className="mb-4">
                   <label htmlFor="password" className="block text-gray-700 font-medium">Password*</label>
-                  <input id="password" type="password" placeholder="Enter your password" value={password}  onChange={(e) => setPassword(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <input id="password" type="password" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.password && <p className="text-red-600 text-sm">{errors.password}</p>}
-                  {errors.passwordMismatch && <p className="text-red-600 text-sm">{errors.passwordMismatch}</p>}
                 </div>
-               
-                <button type="button" onClick={OnFinish} className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Finish</button>
+
+                
+
+                <button type="submit" className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Sign Up</button>
               </form>
             </div>
           )}
@@ -432,6 +427,6 @@ setName(""),
       </div>
     </div>
   );
-}
+};
 
 export default Demo;
