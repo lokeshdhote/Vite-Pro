@@ -184,7 +184,7 @@ setName(""),
       <div className="w-1/4 bg-blue-50 p-6 flex flex-col justify-start">
         <div className="mb-8">
           {/* Logo */}
-          <img src='./public/logo.png' alt="CoTravels Logo" className="w-[13vw] h-auto" />
+          <img src='/logo.png' alt="CoTravels Logo" className="w-[13vw] h-auto" />
         </div>
 
         <div className="space-y-6 pt-5">

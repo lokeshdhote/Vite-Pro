@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const LoginPanel = () => {
   const [usernameEmail, setUsernameEmail] = useState('');
@@ -21,8 +22,14 @@ const LoginPanel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErrors = validateForm();
+  
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
+  
+      // Show alert if both fields are empty
+      if (!usernameEmail && !password) {
+        toast.error("Please fill in all required fields."); // Display toast notification;
+      }
     } else {
       setErrors({});
       console.log('Form submitted', { usernameEmail, password });
