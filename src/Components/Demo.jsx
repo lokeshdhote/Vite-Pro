@@ -14,7 +14,7 @@ const Demo = () => {
   const [phone_number, setphone_number] = useState('');
   const [languages_spoken, setLanguage] = useState([]);
   const [gender, setGender] = useState('');
-  const [travel_preferences, setTravelPreference] = useState('');
+  const [travel_preferences, setTravelPreference] = useState([]);
   const [bio, setBio] = useState('');
   const [date_of_birth, setdate_of_birth] = useState('');
   const [country, setCountry] = useState('');
@@ -28,8 +28,6 @@ const Demo = () => {
   const countries = Country.getAllCountries();
   const states = State.getStatesOfCountry(country);
   const cities = City.getCitiesOfState(country, state);
-
-  const [travelPreferences, setTravelPreferences] = useState([]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
  
@@ -51,14 +49,14 @@ const Demo = () => {
     const { value, checked } = e.target;
 
     if (checked) {
-      if (travelPreferences.length < 7) { // Maximum of 7 selections
-        setTravelPreferences([...travelPreferences, value]);
+      if (travel_preferences.length < 7) { // Maximum of 7 selections
+        setTravelPreference([...travel_preferences, value]);
         setErrors({}); // Clear any previous errors
       } else {
         setErrors({ travel: "You can select up to 7 travel preferences only." });
       }
     } else {
-      setTravelPreferences(travelPreferences.filter(pref => pref !== value));
+      setTravelPreference(travel_preferences.filter(pref => pref !== value));
     }
   };
   const handleCheckboxChange1 = (e) => {
@@ -215,6 +213,7 @@ const Demo = () => {
       travel_preferences,
       bio,
     }));
+    // console.log(languages_spoken ,travel_preferences);
     
     setUsername("");
     setName("");
@@ -287,7 +286,7 @@ const Demo = () => {
       </div>
 
       {/* Form Content */}
-      <div className="w-full lg:w-3/4 flex flex-col items-center justify-center p-4 lg:p-10">
+      <div className="w-full lg:w-3/4 flex flex-col items-center justify-center p-4 lg:p-6">
         <div className="w-full max-w-md">
           {/* Form Title and Content based on active step */}
           {activeStep === 1 && (
@@ -331,7 +330,7 @@ const Demo = () => {
 
         {/* Dropdown content (checkbox list) */}
         {isDropdownOpen && ( // Conditionally render dropdown content
-          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-auto">
             {languages.map((language, index) => (
               <div key={index} className="flex items-center p-2 hover:bg-gray-100">
                 <input
@@ -402,21 +401,21 @@ const Demo = () => {
           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
         >
           {/* Show selected travel preferences */}
-          {travelPreferences.length > 0 
-            ? travelPreferences.join(', ') 
+          {travel_preferences.length > 0 
+            ? travel_preferences.join(', ') 
             : "Select your travel preferences"}
         </div>
 
         {/* Dropdown content (checkbox list) */}
         {isDropdownOpen && ( // Conditionally render dropdown content
-          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
+          <div className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-auto">
             {preferences.map((preference, index) => (
               <div key={index} className="flex items-center p-2 hover:bg-gray-100">
                 <input
                   type="checkbox"
                   id={preference}
                   value={preference}
-                  checked={travelPreferences.includes(preference)}
+                  checked={travel_preferences.includes(preference)}
                   onChange={handleCheckboxChange2}
                   className="mr-2"
                 />
