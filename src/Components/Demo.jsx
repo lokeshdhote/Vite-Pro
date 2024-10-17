@@ -84,9 +84,9 @@ const Demo = () => {
 
 
 
-  const handleStepClick = (step) => {
-    setActiveStep(step);
-  };
+  // const handleStepClick = (step) => {
+  //   setActiveStep(step);
+  // };
   const validate = () => {
     const validationErrors = {};
 
@@ -213,7 +213,7 @@ const Demo = () => {
       travel_preferences,
       bio,
     }));
-    // console.log(languages_spoken ,travel_preferences);
+    // console.log(languages_spokenpm run ,travel_preferences);
     
     setUsername("");
     setName("");
@@ -258,7 +258,7 @@ const Demo = () => {
            {[1, 2, 3, 4].map((step) => (
              <div
                key={step}
-               onClick={() => handleStepClick(step)}
+              //  onClick={() => handleStepClick(step)}
                className="flex items-center  space-x-4 cursor-pointer lg:px-1 px-2 pt-2 ml-[4vw] "
             >
                <div>
