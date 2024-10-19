@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { AsynSignUp } from '../Store/Actions/UserAction';
@@ -249,7 +249,7 @@ const Demo = () => {
       toast.success("signIn Successfully !")
     }
     if(error){
-    toast.error(error )
+    toast.error(error)
     }
     },[dispatch,user,error])
     
