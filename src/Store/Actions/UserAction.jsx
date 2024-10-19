@@ -8,11 +8,9 @@ export const AsynSignUp = (user) => async (dispatch, getState) => {
     const { data } = await axios.post("/user/signup", user);
     dispatch(signUp(data));
   } catch (error) {
-    const {errors} = error?.response
-    console.log(errors);
-     // Get the error message
-    dispatch(setError(errors.message)); // Dispatch the error message
-    // console.log(errors.message); // Log the error message for debugging
+    const {errors} = error?.response?.data ; // Get the error message
+    dispatch(setError(errors.message )); // Dispatch the error message
+    console.log(errors?.message); // Log the error message for debugging
   }
 }
 
