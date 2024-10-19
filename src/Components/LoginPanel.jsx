@@ -74,9 +74,9 @@ useEffect(()=>{
         <div className="text-center w-full bg-[#ccecf4] lg:bg-blue-50 lg:flex items-start flex-col px-[5vw]">
           <div className="flex gap-2 justify-center py-2">
             <i className="text-[#3689a3] ri-checkbox-circle-line text-2xl font-[500] lg:text-[#3689a3]"></i>
-            <h2 className="font-[600] text-lg lg:text-[1.1vw]">Login</h2>
+            <h2 className="font-[600] text-lg lg:text-[2.5vw] xl:text-[1.4vw] ">Login</h2>
           </div>
-          <p className="text-gray-400 mt-1 hidden text-sm lg:text-base lg:inline">
+          <p className="text-gray-400 mt-1 hidden text-sm text-left lg:text-[1.7vw] xl:text-base lg:inline">
             Enter your credentials to login
           </p>
         </div>
