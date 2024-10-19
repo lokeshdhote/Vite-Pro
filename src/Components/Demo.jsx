@@ -288,7 +288,7 @@ const Demo = () => {
                    <span className={`text-2xl font-[500] ${activeStep === step ? 'text-[#3689a3]' : 'text-gray-400'}`}>
                      <i className="ri-checkbox-circle-line"></i>
                    </span>
-                   <h2 className={`w-full text-[2.8vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:text-[1.4vw]  xl:text-[1.1vw] ${activeStep === step ? 'inline text-black' : 'hidden text-gray-400'}
+                   <h2 className={`w-full text-[2.8vw] font-[700] lg:bg-blue-50  lg:font-[600] lg:text-[1.7vw]  xl:text-[1.1vw] ${activeStep === step ? 'inline text-black' : 'hidden text-gray-400'}
                    lg:inline `}>
                     {step === 1 ? "Your details" :
                      step === 2 ? "Personal Information" :
@@ -296,7 +296,7 @@ const Demo = () => {
                        "Account Security"}
                        </h2>
                  </div>
-                 <p className="text-gray-400 mt-1 hidden lg:inline lg:text-[1.vw]  xl:text-[1.1vw]">
+                 <p className="text-gray-400 mt-1 hidden lg:inline lg:text-[1.7vw]  xl:text-[1.1vw]">
                   {step === 1 ? "Please provide your name and contact" :
                    step === 2 ? "Tell us more about yourself" :
                      step === 3 ? "Share your location details" :
