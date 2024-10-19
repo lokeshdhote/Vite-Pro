@@ -29,7 +29,7 @@ const Demo = () => {
   const countries = Country.getAllCountries();
   const states = State.getStatesOfCountry(country);
   const cities = City.getCitiesOfState(country, state);
-
+  const [customCity, setCustomCity] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
  
 
@@ -463,58 +463,77 @@ const Demo = () => {
             </div>
           )}
 
-          {/* Step 3 - Location */}
-          {activeStep === 3 && (
-            <div>
-              <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-3xl font-[500]'><i className="ri-map-pin-line"></i></h2>
-                <h1 className="text-xl font-bold text-gray-800">Location</h1>
-                <p className="text-gray-500">Share your location details</p>
-              </div>
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="country" className="block text-gray-700 font-medium">Country*</label>
-                  <select id="country" value={country} onChange={(e) => setCountry(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select Country</option>
-                    {countries.map((country) => (
-                      <option key={country.isoCode} value={country.isoCode}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.country && <p className="text-red-600 text-sm">{errors.country}</p>}
-                </div>
+        {/* Step 3 - Location */}
+{activeStep === 3 && (
+  <div>
+    <div className="mb-5 flex flex-col items-center justify-center">
+      <h2 className='text-3xl font-[500]'><i className="ri-map-pin-line"></i></h2>
+      <h1 className="text-xl font-bold text-gray-800">Location</h1>
+      <p className="text-gray-500">Share your location details</p>
+    </div>
+    <form>
+      <div className="mb-4">
+        <label htmlFor="country" className="block text-gray-700 font-medium">Country*</label>
+        <select id="country" value={country} onChange={(e) => {
+          setCountry(e.target.value);
+          setState(""); // Reset state and city when country changes
+          setCity("");
+        }} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <option value="">Select Country</option>
+          {countries.map((country) => (
+            <option key={country.isoCode} value={country.isoCode}>
+              {country.name}
+            </option>
+          ))}
+        </select>
+        {errors.country && <p className="text-red-600 text-sm">{errors.country}</p>}
+      </div>
 
-                <div className="mb-4">
-                  <label htmlFor="state" className="block text-gray-700 font-medium">State*</label>
-                  <select id="state" value={state} onChange={(e) => setState(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select State</option>
-                    {states.map((state) => (
-                      <option key={state.isoCode} value={state.isoCode}>
-                        {state.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.state && <p className="text-red-600 text-sm">{errors.state}</p>}
-                </div>
+      <div className="mb-4">
+        <label htmlFor="state" className="block text-gray-700 font-medium">State*</label>
+        <select id="state" value={state} onChange={(e) => {
+          setState(e.target.value);
+          setCity(""); // Reset city when state changes
+        }} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+          <option value="">Select State</option>
+          {states.map((state) => (
+            <option key={state.isoCode} value={state.isoCode}>
+              {state.name}
+            </option>
+          ))}
+        </select>
+        {errors.state && <p className="text-red-600 text-sm">{errors.state}</p>}
+      </div>
 
-                <div className="mb-4">
-                  <label htmlFor="city" className="block text-gray-700 font-medium">City*</label>
-                  <select id="city" value={city} onChange={(e) => setCity(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Select City</option>
-                    {cities.map((city) => (
-                      <option key={city.name} value={city.name}>
-                        {city.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.city && <p className="text-red-600 text-sm">{errors.city}</p>}
-                </div>
+      <div className="mb-4">
+        <label htmlFor="city" className="block text-gray-700 font-medium">City*</label>
+        {cities.length > 0 ? (
+          <select id="city" value={city} onChange={(e) => setCity(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Select City</option>
+            {cities.map((city) => (
+              <option key={city.name} value={city.name}>
+                {city.name}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type="text"
+            id="customCity"
+            value={customCity}
+            onChange={(e) => setCustomCity(e.target.value)}
+            placeholder="Type your city name"
+            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        )}
+        {errors.city && <p className="text-red-600 text-sm">{errors.city}</p>}
+      </div>
 
-                <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-[#3689a3] rounded-md">Next</button>
-              </form>
-            </div>
-          )}
+      <button type="button" onClick={handleNextStep} className="w-full py-2 text-white bg-[#3689a3] rounded-md">Next</button>
+    </form>
+  </div>
+)}
+
 
           {/* Step 4 - Account Security */}
           {activeStep === 4 && (
