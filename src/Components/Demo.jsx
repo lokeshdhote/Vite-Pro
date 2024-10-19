@@ -112,9 +112,9 @@ const Demo = () => {
     // phone_number number validation
 
     if (!phone_number.trim()) {
-        validationErrors.phone_number = "phone_number number is required";
+        validationErrors.phone_number = "Phone number is required";
       } else if (!/^\+?1?\d{9,15}$/.test(phone_number)) {
-        validationErrors.phone_number = "phone_number number should be 10 digits";
+        validationErrors.phone_number = "Phone number should be 10 digits";
       }
 
    
@@ -299,7 +299,7 @@ const Demo = () => {
               <form>
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-gray-700 font-medium">Name*</label>
-                  <input id="name" type="text" placeholder="Enter your first name" value={name} onChange={(e) => setName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                  <input id="name" type="text" placeholder="Enter your Name" value={name} onChange={(e) => setName(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                   {errors.name && <p className="text-red-600 text-sm">{errors.name}</p>}
                 </div>
              
@@ -314,7 +314,7 @@ const Demo = () => {
                   {errors.phone_number && <p className="text-red-600 text-sm">{errors.phone_number}</p>}
                 </div>
                 <div className="mb-6">
-      <label className="block text-gray-700 font-medium">Languages spoken*</label>
+      <label className="block text-gray-700 font-medium">Languages spoken</label>
 
       {/* Dropdown */}
       <div className="relative">
@@ -381,7 +381,7 @@ const Demo = () => {
                   <select id="gender" value={gender}  onChange={(e) => setGender(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                      <option value="">Select Gender</option>
                      <option value="male">Male</option>
-                     <option value="female">Female</option>                     <option value="other">other</option>
+                     <option value="female">Female</option>                     <option value="other">Other</option>
                    </select>
                    {errors.gender && <p className="text-red-600 text-sm">{errors.gender}</p>}
                  </div>
@@ -392,7 +392,7 @@ const Demo = () => {
                   {errors.date_of_birth && <p className="text-red-600 text-sm">{errors.date_of_birth}</p>}
                 </div>
                 <div className="mb-6">
-      <label className="block text-gray-700 font-medium">Travel Preference*</label>
+      <label className="block text-gray-700 font-medium">Travel Preference</label>
 
       {/* Dropdown */}
       <div className="relative">
