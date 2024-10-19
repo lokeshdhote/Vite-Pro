@@ -228,7 +228,7 @@ const Demo = () => {
       bio,
     }));
     // console.log(languages_spokenpm run ,travel_preferences);
-    
+    setActiveStep(1)
     setUsername("");
     setName("");
     setEmail("");
