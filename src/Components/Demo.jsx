@@ -82,11 +82,25 @@ const Demo = () => {
   };
 
 
+  const handleStepIconClick = (step) => {
+    // Check if current step is filled before allowing forward navigation
+    const currentStepErrors = validate();
+  
+    // If navigating backward to a previous step, allow it unconditionally
+    if (step < activeStep) {
+      setActiveStep(step);
+    } else if (step > activeStep) {
+      // Allow navigation forward only if current step is filled
+      if (Object.keys(currentStepErrors).length === 0) {
+        setActiveStep(step); // Navigate to the next step
+      } else {
+        // If current step is not filled, show an error
+        toast.error("Please fill in all required fields in the current step.");
+      }
+    }
+  };
+  
 
-
-  // const handleStepClick = (step) => {
-  //   setActiveStep(step);
-  // };
   const validate = () => {
     const validationErrors = {};
 
@@ -180,7 +194,8 @@ const Demo = () => {
       setErrors({});
     } else {
       setErrors(validationErrors);
-      toast.error("Please fill in all required fields."); // Display toast notification
+      if(!name && !phone_number && !email) toast.error("Please fill in all required fields.");
+       // Display toast notification
     }
     
   };
@@ -188,9 +203,7 @@ const Demo = () => {
 
   const OnFinish = (e)=>{
     e.preventDefault();
-    if (!username || !email && !password) {
-      toast.error("Please fill in all required fields.");
-     } 
+    if(!username && !password) toast.error("Please fill in all required fields.");
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -258,7 +271,7 @@ const Demo = () => {
            {[1, 2, 3, 4].map((step) => (
              <div
                key={step}
-              //  onClick={() => handleStepClick(step)}
+               onClick={() => handleStepIconClick(step)}
                className="flex items-center  space-x-4 cursor-pointer lg:px-1 px-2 pt-2 ml-[4vw] "
             >
                <div>
@@ -431,7 +444,7 @@ const Demo = () => {
     </div>
 
                 <div className="mb-4">
-                  <label htmlFor="bio" className="block text-gray-700 font-medium">Bio*</label>
+                  <label htmlFor="bio" className="block text-gray-700 font-medium">Bio</label>
                    <textarea id="bio" placeholder="Tell us about yourself" value={bio}  onChange={(e) => setBio(e.target.value)} className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                    {errors.bio && <p className="text-red-600 text-sm">{errors.bio}</p>}
                  </div>
