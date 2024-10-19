@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { AsynSignUp } from '../Store/Actions/UserAction';
 import { Country, State, City } from "country-state-city";
 import { NavLink } from 'react-router-dom';
 
 const Demo = () => {
+  const {user,isAuth,error}= useSelector(state=>(state.user))
   const dispatch = useDispatch()
   const [activeStep, setActiveStep] = useState(1); 
 
@@ -243,7 +244,15 @@ const Demo = () => {
     setBio("");
     setErrors({});
   };
-
+  useEffect(()=>{
+    if(user){
+      toast.success("signIn Successfully !")
+    }
+    if(error){
+    toast.error(error )
+    }
+    },[dispatch,user,error])
+    
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Sidebar */}

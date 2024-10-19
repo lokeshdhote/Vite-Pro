@@ -2,6 +2,7 @@ import axios from "../../Utils/axios.jsx";
 import { signUp, signIn, setError ,UserLoginRequest } from "../Reducers/UserReducer.jsx";
 
 export const AsynSignUp = (user) => async (dispatch, getState) => {
+  dispatch(UserLoginRequest())
   try {
 
     const { data } = await axios.post("/user/signup", user);
@@ -21,8 +22,8 @@ dispatch(UserLoginRequest())
 
     dispatch(signIn(data));
   } catch (error) {
-    const {errors} = error?.response.data; // Get the error message
-    dispatch(setError(errors.message)); // Dispatch the error message
+    const {errors} = error?.response?.data ; // Get the error message
+    dispatch(setError(errors.message )); // Dispatch the error message
     // console.log(errors?.message); // Log the error message for debugging
   }
 }

@@ -54,7 +54,7 @@ useEffect(()=>{
     toast.success("Login Successfully !")
   }
   if(error){
-  toast.error(error)
+  toast.error(error )
   }
   },[dispatch,user,error])
   
