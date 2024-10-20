@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AsynSignIn } from '../Store/Actions/UserAction';
+import { AsynclearUserState, AsynSignIn } from '../Store/Actions/UserAction';
 
 const LoginPanel = () => {
   const dispatch = useDispatch();
-  const {user,isAuth,error}= useSelector(state=>(state.user))
+  const {LoginUser,msg,isAuth,error}= useSelector(state=>(state.user))
+ console.log(LoginUser);
  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -48,16 +49,18 @@ const LoginPanel = () => {
  
  
 }
-
-useEffect(()=>{
-  if(user){
-    toast.success("Login Successfully !")
+useEffect(() => {
+  if (LoginUser && msg) {
+    toast.success(msg);  // Show success message when user logs in
+    dispatch(AsynclearUserState());  // Clear message and user state to prevent repeat
   }
-  if(error){
-  toast.error(error )
-  }
-  },[dispatch,user,error])
   
+  if (error) {
+    toast.error(error);  // Show error if there's one
+    dispatch(AsynclearUserState());  // Clear error
+  }
+}, [LoginUser, error, msg, dispatch]);
+ 
 
 
   return (
@@ -68,15 +71,15 @@ useEffect(()=>{
         <img 
           src='/logo.png' 
           alt="CoTravels Logo" 
-          className="w-[36vw] h-auto lg:w-[13vw] mb-6 lg:mb-10" 
+          className="w-[42vw] h-auto lg:w-[13vw] mb-6 lg:mb-10" 
         />
         {/* Login Text */}
         <div className="text-center w-full bg-[#ccecf4] lg:bg-blue-50 lg:flex items-start flex-col px-[5vw]">
           <div className="flex gap-2 justify-center py-2">
             <i className="text-[#3689a3] ri-checkbox-circle-line text-2xl font-[500] lg:text-[#3689a3]"></i>
-            <h2 className="font-[600] text-lg lg:text-[2vw]  xl:text-[1.3vw] ">Login</h2>
+            <h2 className="font-[600] text-lg lg:text-[2vw]  xl:text-[1.2vw] ">Login</h2>
           </div>
-          <p className="text-gray-400 mt-1 hidden text-sm text-left lg:text-[1.3vw]  xl:text-[1.1vw] lg:inline">
+          <p className="text-gray-400 mt-1 hidden text-sm text-left lg:text-[1.3vw]  xl:text-[1.05vw] lg:inline">
             Enter your credentials to login
           </p>
         </div>
@@ -87,7 +90,7 @@ useEffect(()=>{
         <div className="w-full max-w-md">
           {/* Form Title */}
           <div className="mb-6 lg:mb-8 flex flex-col items-center justify-center">
-            <h2 className="text-4xl font-[500]">
+            <h2 className="text-2xl lg:text-3xl font-[500]">
               <i className="ri-login-box-line"></i>
             </h2>
             <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">Login</h1>

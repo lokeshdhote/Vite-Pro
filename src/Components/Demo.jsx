@@ -272,7 +272,7 @@ const Demo = () => {
       ">
         <div className="mb-8">
           {/* Logo */}
-          <img src='/logo.png' alt="CoTravels Logo" className="w-[35vw] lg:w-[13vw] h-auto mx-auto lg:mx-0" />
+          <img src='/logo.png' alt="CoTravels Logo" className="w-[42vw] lg:w-[13vw] h-auto mx-auto lg:mx-0" />
         </div>
 
         <div className="py-2 px-4 flex lg:flex-col lg:space-y-6 lg:pt-5 bg-[#ccecf4] w-full lg:bg-blue-50">
@@ -315,7 +315,7 @@ const Demo = () => {
           {activeStep === 1 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-3xl font-[500]'><i className="ri-file-list-2-line"></i></h2>
+                <h2 className='text-2xl lg:text-3xl font-[500]'><i className="ri-file-list-2-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Your details</h1>
                 <p className="text-gray-500">Please provide your name and contact</p>
               </div>
@@ -394,7 +394,7 @@ const Demo = () => {
           {activeStep === 2 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-3xl font-[500]'><i className="ri-user-line"></i></h2>
+                <h2 className='text-2xl lg:text-3xl font-[500]'><i className="ri-user-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Personal Information</h1>
                 <p className="text-gray-500">Tell us more about yourself</p>
               </div>
@@ -467,7 +467,7 @@ const Demo = () => {
 {activeStep === 3 && (
   <div>
     <div className="mb-5 flex flex-col items-center justify-center">
-      <h2 className='text-3xl font-[500]'><i className="ri-map-pin-line"></i></h2>
+      <h2 className='text-2xl lg:text-3xlfont-[500]'><i className="ri-map-pin-line"></i></h2>
       <h1 className="text-xl font-bold text-gray-800">Location</h1>
       <p className="text-gray-500">Share your location details</p>
     </div>
@@ -539,7 +539,7 @@ const Demo = () => {
           {activeStep === 4 && (
             <div>
               <div className="mb-5 flex flex-col items-center justify-center">
-                <h2 className='text-3xl font-[500]'><i className="ri-shield-user-line"></i></h2>
+                <h2 className='text-2xl lg:text-3xlfont-[500]'><i className="ri-shield-user-line"></i></h2>
                 <h1 className="text-xl font-bold text-gray-800">Account Security</h1>
                 <p className="text-gray-500">Set up your username and password</p>
               </div>

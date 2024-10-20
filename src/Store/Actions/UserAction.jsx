@@ -1,5 +1,5 @@
 import axios from "../../Utils/axios.jsx";
-import { signUp, signIn, setError ,UserLoginRequest } from "../Reducers/UserReducer.jsx";
+import { signUp, signIn, setError ,UserLoginRequest,clearUserState } from "../Reducers/UserReducer.jsx";
 
 export const AsynSignUp = (user) => async (dispatch, getState) => {
   dispatch(UserLoginRequest())
@@ -27,3 +27,6 @@ dispatch(UserLoginRequest())
     // console.log(errors?.message); // Log the error message for debugging
   }
 }
+export const AsynclearUserState = () => (dispatch) => {
+  dispatch(clearUserState());
+};
