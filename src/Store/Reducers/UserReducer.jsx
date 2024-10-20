@@ -15,13 +15,16 @@ export const userSlice = createSlice({
             state.isAuth = false;
             state.loading = true;
         },
+        
         signUp: (state, action) => {
             state.user = action.payload;  // Set user data
             state.isAuth = state?.user ? true : false;  // Update authentication status
             state.error = null;
+            state.msg= 'Registration  Successfully !'
            
         
         },
+
        signIn:(state, action) => {
         state.LoginUser = action.payload;  // Set user data
         localStorage.setItem("access_token", JSON.stringify(state.LoginUser?.access_token));

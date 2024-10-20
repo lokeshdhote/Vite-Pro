@@ -6,7 +6,7 @@ import { Country, State, City } from "country-state-city";
 import { NavLink } from 'react-router-dom';
 
 const Demo = () => {
-  const {user,isAuth,error}= useSelector(state=>(state.user))
+  const {user,msg,isAuth,error}= useSelector(state=>(state.user))
   const dispatch = useDispatch()
   const [activeStep, setActiveStep] = useState(1); 
 
@@ -244,14 +244,19 @@ const Demo = () => {
     setBio("");
     setErrors({});
   };
-  useEffect(()=>{
-    if(user){
-      toast.success("signIn Successfully !")
-    }
-    if(error){
-    toast.error(error)
-    }
-    },[dispatch,user,error])
+
+ useEffect(() => {
+  if (user && msg) {
+    toast.success(msg);  // Show success message when user logs in
+    dispatch(AsynclearUserState());  // Clear message and user state to prevent repeat
+  }
+  
+  if (error) {
+    toast.error(error);  // Show error if there's one
+    dispatch(AsynclearUserState());  // Clear error
+  }
+}, [user, error, msg, dispatch]);
+ 
     
   return (
     <div className="flex flex-col lg:flex-row h-screen">
@@ -275,7 +280,8 @@ const Demo = () => {
           <img src='/logo.png' alt="CoTravels Logo" className="w-[42vw] lg:w-[13vw] h-auto mx-auto lg:mx-0" />
         </div>
 
-        <div className="py-2 px-4 flex lg:flex-col lg:space-y-6 lg:pt-5 bg-[#ccecf4] w-full lg:bg-blue-50">
+        <div className="py-2 px-4 flex  justify-center sm:justify-center
+        lg:flex-col lg:space-y-6 lg:pt-5 bg-[#ccecf4] w-full lg:bg-blue-50">
           {/* Steps */}
            {[1, 2, 3, 4].map((step) => (
              <div
